@@ -6,7 +6,7 @@
 | 3       | insert.c, sort.c |
 | 4       | print.c          |
 | 5       |                  |
-| 6       |                  |
+| 6       | insert_sort.c    |
 | 7       | find.c           |
 | 8       |                  |
 | 9       |                  |
