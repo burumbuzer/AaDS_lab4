@@ -1,7 +1,6 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
 
 #define DATA_SIZE 20
 #define RECORD_SIZE sizeof(Record) 
@@ -53,9 +52,6 @@ int write_record(FILE* f, int offset, Record* r) {
 }
 
 int main(int argc, char* argv[]) {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-
     FILE* file = fopen(argv[1], "rb+");
     if (!file) {
         printf("Не может открыть файл %s\n", argv[1]);
