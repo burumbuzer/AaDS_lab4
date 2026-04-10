@@ -17,11 +17,11 @@ typedef struct {
     char deleted;
     char name[20];
     int next;
-} record_t;
+} __attribute__((packed)) record_t;
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        printf("Usage: pack.exe <filename>\n");
+        printf("Usage: %s <filename>\n", argv[0]);
         return 1;
     }
 
