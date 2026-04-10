@@ -1,8 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list_struct.h"
-#include <windows.h>
+
+// Заголовочная запись (20 байт: 5 чисел по 4 байта)
+typedef struct {
+    int activeCount;      // количество активных элементов
+    int deletedCount;     // количество удалённых
+    int firstActive;      // смещение на первый активный элемент
+    int firstDeleted;     // смещение на первый удалённый элемент
+    int lastDeleted;      // смещение на последний удалённый элемент
+} Header;
+
+// Запись-элемент (25 байт: 1 байт + 20 байт + 4 байта)
+typedef struct {
+    unsigned char deletedBit;  // 0 - активен, 1 - удалён
+    char name[20];              // наименование (строка, 20 байт)
+    int next;                   // указатель на следующий элемент (смещение)
+} Record;
 
 void printHelp(const char* programName) {
     printf("Использование: %s \n", programName);
@@ -136,7 +150,6 @@ cleanup:  // ← ЭТА МЕТКА ТОЖЕ ВАЖНА (хотя здесь он
 
 int main(int argc, char* argv[]) 
 {
-    SetConsoleOutputCP(65001);
     if (argc != 3) {
         printHelp(argv[0]);
         return 1;
