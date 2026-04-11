@@ -105,8 +105,8 @@ int main(int argc, char* argv[]) {
 
     // Создаём временный файл
     char temp_name[256];
-    strcpy_s(temp_name, sizeof(temp_name), argv[1]);
-    strcat_s(temp_name, sizeof(temp_name), ".tmp");
+    strcpy(temp_name, argv[1]);
+    strcat(temp_name, ".tmp");
 
     FILE* temp = fopen(temp_name, "wb");
     if (!temp) {
