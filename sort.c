@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#pragma pack(push, 1)
 typedef struct {
     int32_t active_count;
     int32_t deleted_count;
@@ -18,7 +17,6 @@ typedef struct {
     char name[20];
     int32_t next_ptr;
 } Node;
-#pragma pack(pop)
 
 typedef struct {
     int32_t offset;
