@@ -5,21 +5,21 @@
 #include <stddef.h>
 
 typedef struct {
-    int32_t active_count;
-    int32_t deleted_count;
-    int32_t head_active;
-    int32_t head_deleted;
-    int32_t tail_deleted;
+    int active_count;
+    int deleted_count;
+    int head_active;
+    int head_deleted;
+    int tail_deleted;
 } Header;
 
 typedef struct {
-    uint8_t is_deleted;
+    char is_deleted;
     char name[20];
-    int32_t next_ptr;
+    int next_ptr;
 } Node;
 
 typedef struct {
-    int32_t offset;
+    int offset;
     char name[20];
 } NodeInfo;
 
@@ -33,8 +33,8 @@ void print_list(const char* filename) {
     Header hdr;
     fread(&hdr, sizeof(Header), 1, f);
     printf("\nТекущий список (head: %d)\n", hdr.head_active);
-    int32_t curr = hdr.head_active;
-    //роверка на -1
+    int curr = hdr.head_active;
+    //проверка на -1
     while (curr != -1) {
         Node n;
         fseek(f, curr, SEEK_SET);
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 
     if (hdr.active_count > 1) {
         NodeInfo* list = malloc(sizeof(NodeInfo) * hdr.active_count);
-        int32_t current_ptr = hdr.head_active;
+        int current_ptr = hdr.head_active;
         
         //цикл до -1
         for (int i = 0; i < hdr.active_count && current_ptr != -1; i++) {
@@ -83,9 +83,9 @@ int main(int argc, char* argv[]) {
 
         hdr.head_active = list[0].offset;
         for (int i = 0; i < hdr.active_count; i++) {
-            int32_t next = (i == hdr.active_count - 1) ? -1 : list[i + 1].offset;
+            int next = (i == hdr.active_count - 1) ? -1 : list[i + 1].offset;
             fseek(f, list[i].offset + offsetof(Node, next_ptr), SEEK_SET);
-            fwrite(&next, sizeof(int32_t), 1, f);
+            fwrite(&next, sizeof(int), 1, f);
         }
         fseek(f, 0, SEEK_SET);
         fwrite(&hdr, sizeof(Header), 1, f);
